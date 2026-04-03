@@ -1,0 +1,56 @@
+{
+  "name": "@localize/cli",
+  "version": "0.1.0",
+  "description": "CLI tool for automating i18n workflows in JavaScript/TypeScript projects",
+  "type": "module",
+  "bin": {
+    "localize": "dist/bin/localize.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "bin"],
+  "scripts": {
+    "build": "tsc && chmod +x dist/bin/localize.js",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "localization",
+    "cli",
+    "automation",
+    "typescript"
+  ],
+  "author": "SaidKSI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SaidKSI/localize-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SaidKSI/localize-cli/issues"
+  },
+  "homepage": "https://github.com/SaidKSI/localize-cli#readme",
+  "dependencies": {
+    "@localize/core": "^0.1.0",
+    "commander": "^11.1.0",
+    "cosmiconfig": "^8.3.6",
+    "chalk": "^5.3.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
