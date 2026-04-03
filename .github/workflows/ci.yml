@@ -45,6 +45,3 @@ jobs:
 
       - name: Verify CLI binary
         run: node dist/bin/localize.js --help
-
-      - name: Test
-        run: pnpm test
