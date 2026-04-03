@@ -1,7 +1,7 @@
 {
-  "name": "@localize/cli",
+  "name": "@saidksi/localizer-cli",
   "version": "0.1.0",
-  "description": "CLI tool for automating i18n workflows in JavaScript/TypeScript projects",
+  "description": "CLI tool for automating i18n workflows in JavaScript/TypeScript projects with localizer",
   "type": "module",
   "bin": {
     "localize": "dist/bin/localize.js"
@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/SaidKSI/localize-cli#readme",
   "dependencies": {
-    "@localize/core": "^0.1.0",
+    "@saidksi/localizer-core": "^0.1.0",
     "commander": "^11.1.0",
     "cosmiconfig": "^8.3.6",
     "chalk": "^5.3.0",

@@ -1,6 +1,6 @@
-# CLAUDE.md - @localize/cli
+# CLAUDE.md - @saidksi/localizer-cli
 
-Command-line tool for automating i18n workflows in JavaScript/TypeScript projects. This is a **public npm package** (`@localize/cli`) that provides 10 CLI commands for end-to-end i18n automation.
+Command-line tool for automating i18n workflows in JavaScript/TypeScript projects. This is a **public npm package** (`@saidksi/localizer-cli`) that provides 10 CLI commands for end-to-end i18n automation.
 
 ---
 
@@ -14,11 +14,13 @@ Command-line tool for automating i18n workflows in JavaScript/TypeScript project
 - Validates translation coverage across languages
 - Provides full automation pipeline and individual commands
 
-**Depends on:** `@localize/core` npm package (core business logic)
+**Depends on:** `@saidksi/localizer-core@0.1.0` (npm package)
 
-**Status:** V0.1.0 — All 10 commands complete. Ready for npm publishing.
+**Status:** V0.1.0 — All 10 commands complete. Ready to publish (after core is available).
 
+**Package:** `@saidksi/localizer-cli@0.1.0` (npm)
 **Repository:** https://github.com/SaidKSI/localize-cli
+**GitHub Actions:** ✅ CI + Auto-publish on tags (v*)
 
 ---
 
@@ -347,20 +349,30 @@ node dist/bin/localize.js --help
 
 ## Publishing to npm
 
-**Current Status:** Ready to publish (after `@localize/core@0.1.0` is published)
+**Current Status:** Ready to publish (waiting for `@saidksi/localizer-core@0.1.0` on npm)
 
-**Steps:**
-1. Ensure `@localize/core@0.1.0` is published to npm
-2. Ensure `npm login` is done
-3. Run `npm publish`
-4. Tag version: `git tag v0.1.0 && git push origin v0.1.0`
+**How Publishing Works:**
+1. Ensure `@saidksi/localizer-core@0.1.0` is available on npm
+2. Generate `pnpm-lock.yaml`: `pnpm install`
+3. Commit lock file: `git add pnpm-lock.yaml && git commit`
+4. Tag release: `git tag v0.1.0`
+5. Push tag: `git push origin v0.1.0`
+6. GitHub Actions automatically:
+   - Builds with `pnpm build`
+   - Verifies CLI binary: `node dist/bin/localize.js --help`
+   - Publishes to npm using `NPM_TOKEN` secret
+   - Watch at: https://github.com/SaidKSI/localize-cli/actions
 
 **Package Details:**
-- **Name:** `@localize/cli`
+- **Name:** `@saidksi/localizer-cli`
 - **Version:** `0.1.0`
+- **npm:** https://www.npmjs.com/package/@saidksi/localizer-cli
 - **Type:** ESM module
-- **Bin:** `localize` → `dist/bin/localize.js`
+- **Bin:** `localizer` → `dist/bin/localize.js`
 - **Files:** `dist/` only
+
+**GitHub Secrets Required:**
+- `NPM_TOKEN` — npm automation token (already configured)
 
 ---
 
@@ -378,20 +390,28 @@ node dist/bin/localize.js --help
 
 ## Related Repos
 
-- **localize-core** — Core library (Scanner, Rewriter, AIClient, Validator)
+- **localizer-core** — Core library (Scanner, Rewriter, AIClient, Validator)
   - Repo: https://github.com/SaidKSI/localize-core
-  - npm: `@localize/core@^0.1.0`
+  - npm: `@saidksi/localizer-core@0.1.0`
+  - Status: Ready to publish
+
+- **localize-sample-app** — Testing app for CLI
+  - Repo: https://github.com/SaidKSI/localize-sample-app
+  - Framework: React 18 + Vite + TypeScript
+  - 40+ hardcoded strings for testing CLI
+  - Languages: en, fr, es (ready for CLI testing)
 
 - **localize-dashboard** (Phase 2, private)
   - Will have web UI for translation management
-  - Also depends on `@localize/core`
+  - Will depend on `localize-core`
 
 ---
 
 ## Key Contacts & Resources
 
 - **GitHub Issues:** https://github.com/SaidKSI/localize-cli/issues
-- **npm Package:** https://www.npmjs.com/package/@localize/cli (once published)
+- **npm Package:** https://www.npmjs.com/package/@saidksi/localizer-cli
+- **GitHub Actions:** https://github.com/SaidKSI/localize-cli/actions
 - **Author:** SaidKSI
 - **License:** MIT
 
