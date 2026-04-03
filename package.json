@@ -28,6 +28,7 @@
   ],
   "author": "SaidKSI",
   "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/SaidKSI/localize-cli.git"
