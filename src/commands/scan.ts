@@ -8,7 +8,7 @@ import {
   buildScanReport,
   type ScanResult,
   type ScanReport,
-} from "@localize/core";
+} from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 import { writeScanReport } from "../utils/reporter.js";

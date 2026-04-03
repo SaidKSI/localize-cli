@@ -3,7 +3,7 @@ import { writeFile } from "fs/promises";
 import { resolve } from "path";
 import chalk from "chalk";
 import ora from "ora";
-import { validateCoverage } from "@localize/core";
+import { validateCoverage } from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 

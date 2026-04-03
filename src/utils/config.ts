@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { join, resolve } from "path";
-import type { LocalizeConfig, AIProvider } from "@localize/core";
+import type { LocalizeConfig, AIProvider } from "@saidksi/localizer-core";
 
 // ─── Paths ─────────────────────────────────────────────────────────────────────
 

@@ -20,7 +20,7 @@ import {
   type ScanResult,
   type RewriteResult,
   type PipelineResult,
-} from "@localize/core";
+} from "@saidksi/localizer-core";
 import { logger, progressBar } from "../utils/logger.js";
 import { loadConfig, requireApiKey } from "../utils/config.js";
 import { promptApplyChanges } from "../utils/prompt.js";
@@ -247,7 +247,7 @@ async function runPipeline(options: RunOptions): Promise<void> {
   if (untranslated.length > 0) {
     const aiSpinner = ora(`Calling ${effectiveConfig.aiProvider} (${effectiveConfig.aiModel})…`).start();
 
-    const translateOpts: import("@localize/core").TranslateOptions = {
+    const translateOpts: import("@saidksi/localizer-core").TranslateOptions = {
       overwrite: config.overwriteExisting,
     };
     if (options.dryRun !== undefined) translateOpts.dryRun = options.dryRun;
@@ -345,7 +345,7 @@ async function runPipeline(options: RunOptions): Promise<void> {
       ? basename(options.file, extname(options.file)).toLowerCase()
       : undefined;
 
-    const validateOpts: import("@localize/core").ValidateOptions = {};
+    const validateOpts: import("@saidksi/localizer-core").ValidateOptions = {};
     if (page !== undefined) validateOpts.page = page;
     const results = await validateCoverage(effectiveConfig, validateOpts);
     const totalMissing = results.reduce((n, r) => n + r.missingKeys.length, 0);

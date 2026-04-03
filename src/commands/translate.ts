@@ -11,7 +11,7 @@ import {
   type ScanResult,
   type ExistingKeyEntry,
   type TranslateResult,
-} from "@localize/core";
+} from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig, requireApiKey } from "../utils/config.js";
 import { flattenJson } from "../utils/json.js";
@@ -267,7 +267,7 @@ async function runTranslate(options: TranslateOptions): Promise<void> {
 
   const aiSpinner = ora(`Calling ${effectiveConfig.aiProvider} (${effectiveConfig.aiModel})...`).start();
 
-  const translateOpts: import("@localize/core").TranslateOptions = {
+  const translateOpts: import("@saidksi/localizer-core").TranslateOptions = {
     overwrite: !options.missingOnly,
   };
   if (options.dryRun !== undefined) translateOpts.dryRun = options.dryRun;

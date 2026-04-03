@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { resolve, relative, dirname, basename } from "path";
 import ora from "ora";
 import chalk from "chalk";
-import { scanFile, scanDirectory, type ScanResult } from "@localize/core";
+import { scanFile, scanDirectory, type ScanResult } from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 import { writeReport } from "../utils/reporter.js";

@@ -8,7 +8,7 @@ import {
   readCache,
   scanDirectory,
   type ValidationResult,
-} from "@localize/core";
+} from "@saidksi/localizer-core";
 import { logger, progressBar } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 
@@ -43,7 +43,7 @@ async function runStatus(options: StatusOptions): Promise<void> {
   const coverageSpinner = ora("Computing key coverage…").start();
   let results: ValidationResult[] = [];
   try {
-    const validateOpts: import("@localize/core").ValidateOptions = {};
+    const validateOpts: import("@saidksi/localizer-core").ValidateOptions = {};
     if (options.lang !== undefined) validateOpts.lang = options.lang;
     results = await validateCoverage(config, validateOpts);
   } catch (err: unknown) {

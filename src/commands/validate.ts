@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { basename, extname } from "path";
 import ora from "ora";
 import chalk from "chalk";
-import { validateCoverage, type ValidationResult } from "@localize/core";
+import { validateCoverage, type ValidationResult } from "@saidksi/localizer-core";
 import { logger, progressBar } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 
@@ -47,7 +47,7 @@ function printMissingKeys(results: ValidationResult[]): void {
   }
 }
 
-function printNextSteps(results: ValidationResult[], config: import("@localize/core").LocalizeConfig, lang?: string): void {
+function printNextSteps(results: ValidationResult[], config: import("@saidksi/localizer-core").LocalizeConfig, lang?: string): void {
   const incomplete = results.filter(
     (r) => r.missingKeys.length > 0 && r.language !== config.defaultLanguage,
   );
@@ -112,7 +112,7 @@ async function runValidate(options: ValidateOptions): Promise<void> {
 
   let results: ValidationResult[] = [];
   try {
-    const validateOpts: import("@localize/core").ValidateOptions = {};
+    const validateOpts: import("@saidksi/localizer-core").ValidateOptions = {};
     if (options.lang !== undefined) validateOpts.lang = options.lang;
     if (page !== undefined) validateOpts.page = page;
     results = await validateCoverage(config, validateOpts);

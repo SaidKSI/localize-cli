@@ -1,4 +1,4 @@
-import { input, confirm, select, checkbox, password } from "@inquirer/prompts";
+import { input, confirm, select, checkbox, password } from "prompts";
 
 // ─── Re-export typed wrappers ─────────────────────────────────────────────────
 // Thin wrappers that enforce consistent styling and reduce boilerplate

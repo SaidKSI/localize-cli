@@ -3,8 +3,8 @@ import { readFile, readdir, access } from "fs/promises";
 import { join, resolve } from "path";
 import ora from "ora";
 import chalk from "chalk";
-import { scanDirectory, validateApiKey } from "@localize/core";
-import type { LocalizeConfig, AIProvider, KeyStyle, I18nLibrary } from "@localize/core";
+import { scanDirectory, validateApiKey } from "@saidksi/localizer-core";
+import type { LocalizeConfig, AIProvider, KeyStyle, I18nLibrary } from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig, saveApiKey, writeProjectConfig } from "../utils/config.js";
 import {

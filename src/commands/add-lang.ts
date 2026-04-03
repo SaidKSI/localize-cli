@@ -3,7 +3,7 @@ import { resolve, join, basename, extname } from "path";
 import { readdir } from "fs/promises";
 import ora from "ora";
 import chalk from "chalk";
-import { translateExistingKeys, type ExistingKeyEntry } from "@localize/core";
+import { translateExistingKeys, type ExistingKeyEntry } from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig, requireApiKey, writeProjectConfig } from "../utils/config.js";
 import { readFile } from "fs/promises";

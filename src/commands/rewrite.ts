@@ -11,7 +11,7 @@ import {
   resolveKeysFromMessages,
   type ScanResult,
   type RewriteResult,
-} from "@localize/core";
+} from "@saidksi/localizer-core";
 import { logger } from "../utils/logger.js";
 import { loadConfig } from "../utils/config.js";
 import { promptApplyChanges } from "../utils/prompt.js";

@@ -1,6 +1,6 @@
 import { writeFile, readFile, mkdir, access } from "fs/promises";
 import { resolve, basename, relative } from "path";
-import type { ScanReport, ValidationResult, PipelineResult } from "@localize/core";
+import type { ScanReport, ValidationResult, PipelineResult } from "@saidksi/localizer-core";
 import { promptConfirm } from "./prompt.js";
 
 // ─── JSON report writer ───────────────────────────────────────────────────────
