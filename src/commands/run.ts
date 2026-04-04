@@ -11,6 +11,7 @@ import {
   applyRewrite,
   groupResultsByFile,
   resolveKeysFromMessages,
+  resolveNamespaces,
   validateCoverage,
   readCache,
   writeCache,
@@ -50,10 +51,11 @@ async function processOneFile(
   results: ScanResult[],
   options: RunOptions,
   config: Awaited<ReturnType<typeof import("../utils/config.js").loadConfig>>,
+  namespace?: string,
 ): Promise<RewriteResult> {
   const cwd    = process.cwd();
   const relPath = relative(cwd, filePath);
-  const rewrite = await rewriteFile(filePath, results, config);
+  const rewrite = await rewriteFile(filePath, results, config, namespace);
 
   if (rewrite.changesCount === 0) {
     logger.dim(`${relPath} — no changes`);
@@ -243,6 +245,9 @@ async function runPipeline(options: RunOptions): Promise<void> {
   logger.step(stepIdx, total, "Translating…");
 
   let translatedResults = scanResults;
+  // namespaceMap is populated by translateStrings; used in the rewrite step
+  // to pass the correct namespace to each rewriteFile call.
+  let namespaceMap = new Map<string, string>();
 
   if (untranslated.length > 0) {
     const aiSpinner = ora(`Calling ${effectiveConfig.aiProvider} (${effectiveConfig.aiModel})…`).start();
@@ -267,6 +272,7 @@ async function runPipeline(options: RunOptions): Promise<void> {
     }
 
     translatedResults = translateResult.results;
+    namespaceMap      = translateResult.namespaceMap;
     pipeline.translated = translateResult.uniqueStrings;
     pipeline.aiCostUsd  = translateResult.aiCostUsd;
   } else {
@@ -301,8 +307,20 @@ async function runPipeline(options: RunOptions): Promise<void> {
 
       let appliedCount = 0;
 
+      // Build a collision-safe namespace map for files in this rewrite batch.
+      // Prefer entries already resolved by the translate step; fill in any
+      // files that were skipped (cached / already-translated) via resolveNamespaces.
+      const rewriteNsMap =
+        namespaceMap.size > 0
+          ? new Map([
+              ...resolveNamespaces(fileList),
+              ...namespaceMap,              // translate step wins on overlap
+            ])
+          : resolveNamespaces(fileList);
+
       for (const [filePath, fileResults] of byFile) {
-        const result = await processOneFile(filePath, fileResults, options, effectiveConfig);
+        const namespace = rewriteNsMap.get(filePath);
+        const result = await processOneFile(filePath, fileResults, options, effectiveConfig, namespace);
         if (result.applied) appliedCount++;
       }
 

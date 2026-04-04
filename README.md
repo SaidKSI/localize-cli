@@ -18,15 +18,17 @@ npm install --save-dev @saidksi/localizer-cli
 # Initialize your project
 localizer init
 
-# Scan for hardcoded strings
-localizer scan src/
+# Scan for hardcoded strings in a specific file
+localizer scan src/components/LoginForm.tsx
 
 # Full automation: scan → generate keys → translate → rewrite
-localizer run --yes
+localizer run src/components/LoginForm.tsx --yes
 
 # Validate translation coverage
 localizer validate
 ```
+
+> **Recommended:** Process files one at a time using `localizer scan <file>` to review changes before applying them. For multiple files, use `localizer run` with `--dry-run` first to preview all changes.
 
 ## Before & After Example
 

@@ -9,6 +9,7 @@ import {
   applyRewrite,
   groupResultsByFile,
   resolveKeysFromMessages,
+  resolveNamespaces,
   type ScanResult,
   type RewriteResult,
 } from "@saidksi/localizer-core";
@@ -32,11 +33,12 @@ async function processOneFile(
   results: ScanResult[],
   options: RewriteOptions,
   config: Awaited<ReturnType<typeof import("../utils/config.js").loadConfig>>,
+  namespace?: string,
 ): Promise<RewriteResult> {
   const cwd    = process.cwd();
   const relPath = relative(cwd, filePath);
 
-  const rewrite = await rewriteFile(filePath, results, config);
+  const rewrite = await rewriteFile(filePath, results, config, namespace);
 
   if (rewrite.changesCount === 0) {
     logger.dim(`${relPath} — no changes (all strings already translated or keys unresolved)`);
@@ -136,6 +138,10 @@ async function runRewrite(options: RewriteOptions): Promise<void> {
   const byFile = groupResultsByFile(resolvable);
   const fileList = [...byFile.keys()];
 
+  // Build a collision-safe namespace map for this batch so that two files
+  // with the same basename get distinct hook namespaces and JSON files.
+  const nsMap = resolveNamespaces(fileList);
+
   logger.blank();
   if (!options.yes && !options.dryRun) {
     logger.raw(chalk.dim(`  Processing ${fileList.length} file${fileList.length !== 1 ? "s" : ""} — you will be asked to confirm each diff.\n`));
@@ -146,7 +152,8 @@ async function runRewrite(options: RewriteOptions): Promise<void> {
   let totalChanges = 0;
 
   for (const [filePath, fileResults] of byFile) {
-    const rewriteResult = await processOneFile(filePath, fileResults, options, config);
+    const namespace = nsMap.get(filePath);
+    const rewriteResult = await processOneFile(filePath, fileResults, options, config, namespace);
     if (rewriteResult.applied) {
       applied++;
       totalChanges += rewriteResult.changesCount;
